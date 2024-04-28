@@ -5,12 +5,15 @@ services:
   db:
     image: mariadb:latest
     restart: always
-    environment:
-      MARIADB_ROOT_PASSWORD: XXXXXX
+    env_file: .env
+#    environment:
+#      - MARIADB_ROOT_PASSWORD=XXXXXX
     ports:
       - 3306:3306
     volumes:
       - mariadb:/var/lib/mysql
+    logging:
+      driver: none
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -22,6 +25,8 @@ services:
       - UPLOAD_LIMIT=2G
       - MEMORY_LIMIT=2048M
       - MAX_EXECUTION_TIME=900
+    logging:
+      driver: none
 
 volumes:
   mariadb:
